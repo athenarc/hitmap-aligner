@@ -12,7 +12,7 @@ Data_builder, query_builder and build_idx targets require a "/bin" folder to exi
 
 # Dependencies
 
-Before proceeding, make sure you have downloaded the latest Boost Library (https://www.boost.org/users/history/version_1_83_0.html) locally and placing it in a folder named **External** in the **Libraries** folder. 
+Before proceeding, make sure you have downloaded the latest Boost Library (https://www.boost.org/users/history/version_1_83_0.html) locally and placing it in a new folder named *External* in the *Libraries* folder. 
 
 # Data_builder
 
