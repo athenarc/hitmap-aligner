@@ -20,55 +20,55 @@ In order to solve a DNA sequence alignment problem you first need to have some t
 
 The next part in the procedure of data building is the execution of the executable file. "./data_builder.out" will fail to execute but will give you a detailed idea of the exact parameters (command line arguments) needed to run the code properly.
 
-1) ## '-loc': The location where the data sequence files are going to be created (required)
+1) '-loc': The location where the data sequence files are going to be created (required)
     Here you just need to specify the name of the folder you want to be created in the parent folder "/bin" in which the DNA sequences will be saved in a ".d" extension file. The number of ".d" files that will be created is proportional to and indicated by "-dnum" value and content-wise they include a data sequence of length "-dlen" and of alphabet "-ab".  
     
     If folder already exists there will be an error. 
     
     eg. "-loc new"
 
-2) ## '-dlen': The length of the data sequences to be created (required).
+2) '-dlen': The length of the data sequences to be created (required).
     Based on the argument "-ab", which indicates the letters that will be used to generate sequences, dlen specifies the length of such a sequence. That is the number of alphabet's characters a sequence will contain.
 
-3) ## '-ab': The name of the alphabet to be used (required).
+3) '-ab': The name of the alphabet to be used (required).
     For a sequence alignment problem to be solved, data and query sequences must be built. These seuqences may differ depending on the field of study. When it comes to DNA sequence alignments, the sequences depict a valid DNA sequence which consists of the bases adenine (A), cytosine (C), guanine (G), and thymine (T). Consequently, both data and query sequences should consist of the letters A, C, G and T rendering this set of letters as "the alphabet". 
     
     Before proceeding to the execution of "data_aligner.out", alphabet's path should be determined. To do so, a folder "Data" and a subfolder "Aligner" should be created forming a "Data/Aligner" path. In "Data/Aligner" a ".conf" file named "alphabets.conf" ought to include the alphabet of the Alignment problem in a specific form. It should contain alphabet's name eg. "ab_name" and in the next line the vocabulary eg. "ACGT" for a DNA sequence, without spaces.
 
     When argument "-ab" is initialized via command line, its value should be of the form "ACGT" which is the supposing alphabet. During the execution, this alphabet will be searched in the file "Data/Aligner/alphabets.conf" and if it is found the execution will proceed, otherwise an error will occur. 
 
-4) ## '-dnum': The number of data sequences to be created (required)
+4) '-dnum': The number of data sequences to be created (required)
     This will determine the number of sequences to be generated but also the number of ".d" files that will consequently be created
 
 # Query_builder
 
 The query_builder.out executable is responsible for generating the query sequences that will be checked with the reference sequences in the ".d" files. As with data_builder, query_builder takes some command line arguments that need to be clarified.
 
-1) ## '-conf': The location where the configuration file resides (required)
+1) '-conf': The location where the configuration file resides (required)
     Following the idea of data_builder, query_builder requires a configuration (".conf") file as well. This time the location and name of the file dont matter since you just need to provide the existed path in the command line. What matters most is the content of the configuration file.
     
     More specifically, the file should have 6 parameters: dfile, qnum, qlen, qthr, meas and inum.
 
-    1) ### dfile: The path including the name of the ".d" file that its sequence will be used as the reference DNA sequence.  
+    1) dfile: The path including the name of the ".d" file that its sequence will be used as the reference DNA sequence.  
 
-    2) ### qnum/qlen: Number of query sequences to be generated/length of each query sequence.
+    2) qnum/qlen: Number of query sequences to be generated/length of each query sequence.
 
-    3) ### qthr: Is the query threshold. 
+    3) qthr: Is the query threshold. 
         
         There are 2 ways for the query sequences to be generated: one is to export a subsquence off of the reference sequence and use this to find alignments and another to export a subsequence and add some errors to it. The number of errors that will be added to the subsequence will equal the value of "-qthr".  
 
-    4) ### meas: Distance Function. 
+    4) meas: Distance Function. 
         
         "Meas" argument is not used during the building of the query sequences but in the last stage of the build in "main.cpp" since they both make use of "config_query.conf". As a result, "query_builder.out" simply acknowledges its existance without actually using it. 
 
-    5) ### inum: Number of Iterations.
+    5) inum: Number of Iterations.
 
         The same applies on this argument too
 
 
     The format of the file should be: <param_name> <param_value> and there should be one pair in each line. 
 
-2) ### '-mode': Two modes. 'datasub' (sequence is taken from the data sequence), 'rand' (random errors in seq)
+2) '-mode': Two modes. 'datasub' (sequence is taken from the data sequence), 'rand' (random errors in seq)
 
     The 2 methods of subsequence exctraction. "datasub" exctracts a plain subsequence from the reference sequence whil "rand" adds errors in to it.
    
@@ -77,32 +77,32 @@ The query_builder.out executable is responsible for generating the query sequenc
 
 Build_idx essentially constructs the indexer and the aligner of Hitmap which takes care of filtering, Bitset operations, windows operations, caclulationg Hamming/Edit distances, creating/storing/loading the index and also developing a lighter aligner with less attributes. Moreover, we again need to provide some arguments just like in the previous executions. 
 
-1) ## '-d': The location of data seq file (required)
+1) '-d': The location of data seq file (required)
     It is essential to specify the exact path of a ".d" file containing a reference/data sequence.
 
-2) ## '-c': The location of the index config file (required). 
+2) '-c': The location of the index config file (required). 
     
     Just like before, we have to define a ".conf" configuration file containing:
 
-    1) ### i: Index type. 
+    1) i: Index type. 
 
         Argument "i" indicates the index type to be constructed. Valid values are "hitmap" and "hitmap2". The latter simply consists of a lighter (memory-wise) version of a "hitmap" index.  
     
-    2) ### q: Query length
+    2) q: Query length
     
-    3) ### r/e: Error ratio/Error threshold. 
+    3) r/e: Error ratio/Error threshold. 
     
         These parameters are 2 different ways to declare how many "errors" you will allow matches to have.  
 
-    4) ### f: Fragments number. 
+    4) f: Fragments number. 
     
         Given a query Q and an integer f, where 0 < f ≤ q, Q is divided into φ = floor(q/f) non-overlapping subsequences called fragments. Their length is equal to f.
 
-    5) ### b: Hash table blocks number
+    5) b: Hash table blocks number
 
-    6) ### s: Bitset block size
+    6) s: Bitset block size
 
-    7) ### a: Alphabet
+    7) a: Alphabet
 
         The characters of the alphabet that were used. 
 
@@ -112,14 +112,14 @@ Build_idx essentially constructs the indexer and the aligner of Hitmap which tak
 
 "Make all" target produces an executable file in the "/bin" catalog named dn_aligner.out. Trying to execute this ".out" file we come across some more command line arguments most of which we have encountered already in previous command line parameters.
 
-1) ## '-exp': Determines the location of the configuration file that contains the details of the experiment (required)
+1) '-exp': Determines the location of the configuration file that contains the details of the experiment (required)
     
     This is nothing more than the configuration file we used for query_builder.out
 
-2) ## '-mode': The mode of the runs: time_measurement, validation, time_measurement_verbose (required)
+2) '-mode': The mode of the runs: time_measurement, validation, time_measurement_verbose (required)
     *** need to clarify which values work ***
 
-3) ## '-qthr': The query threshold (optional).
+3) '-qthr': The query threshold (optional).
 
-4) ## '-idx': The index file (optional).
+4) '-idx': The index file (optional).
     We should specify the path of the file that was generated by the process of build_idx.out
